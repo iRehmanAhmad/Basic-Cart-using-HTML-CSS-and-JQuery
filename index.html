@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link href="style.css" type="text/css" rel="stylesheet" >
+</head>
+<body>
+
+<button id="cart-button">View Cart</button>
+
+<div class="product" data-title="Product 1" data-description="Description of Product 1" data-price="10">
+    <img src="https://via.placeholder.com/150" alt="Product 1">
+    <h3>Product 1</h3>
+    <p>Description of Product 1</p>
+    <p>Price: $10</p>
+    <button class="add-to-cart">Add to Cart</button>
+</div>
+
+<div class="product" data-title="Product 2" data-description="Description of Product 2" data-price="20">
+    <img src="https://via.placeholder.com/150" alt="Product 2">
+    <h3>Product 2</h3>
+    <p>Description of Product 2</p>
+    <p>Price: $20</p>
+    <button class="add-to-cart">Add to Cart</button>
+</div>
+
+<div class="product" data-title="Product 3" data-description="Description of Product 3" data-price="30">
+    <img src="https://via.placeholder.com/150" alt="Product 3">
+    <h3>Product 3</h3>
+    <p>Description of Product 3</p>
+    <p>Price: $30</p>
+    <button class="add-to-cart">Add to Cart</button>
+</div>
+
+<div class="cart">
+    <h2>Cart</h2>
+    <div id="cart-items"></div>
+    <button id="close-cart">Close</button>
+    <button id="clear-cart">Clear</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var cart = [];
+
+        $('.add-to-cart').click(function() {
+            var product = $(this).closest('.product');
+            var title = product.data('title');
+            var description = product.data('description');
+            var price = product.data('price');
+
+            cart.push({ title: title, description: description, price: price });
+            alert(title + ' added to cart');
+        });
+
+        $('#cart-button').click(function() {
+            $('#cart-items').empty();
+            if (cart.length === 0) {
+                $('#cart-items').append('<p>No items in cart</p>');
+            } else {
+                cart.forEach(function(item) {
+                    $('#cart-items').append('<div class="cart-item"><h3>' + item.title + '</h3><p>' + item.description + '</p><p>Price: $' + item.price + '</p></div>');
+                });
+            }
+            $('.cart').show();
+        });
+
+        $('#close-cart').click(function() {
+            $('.cart').hide();
+        });
+        $('#clear-cart').click(function(){
+            cart = [];
+            $('#cart-items').empty();
+            $('#cart-items').append('<p>No items in cart</p>');
+        });
+    });
+</script>
+
+</body>
+</html>
